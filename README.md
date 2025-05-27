@@ -48,7 +48,7 @@ This documentation outlines how the system and development process adhere to pri
 
 To test adaptability, the following change was imposed mid-design:
 
-> 🔧 **"Now the system must support follow-up questions from participants."**
+>  **"Now the system must support follow-up questions from participants."**
 
 ### System Adjustments:
 - The `participants` structure was extended to accept **multiple lines per participant**, simulating a sequence of related follow-ups.
@@ -66,8 +66,12 @@ This validated:
 
 ![image](https://github.com/user-attachments/assets/970dc462-5e72-499c-afeb-554efd686de3)
 
+**Response to Designer**
 
 ![image](https://github.com/user-attachments/assets/d961e837-bc64-431f-84aa-e3c0d561d8ae)
+
+**Response to PM**
+
 ![image](https://github.com/user-attachments/assets/e8ec9e3f-3093-4e12-aa48-e38b30c969a6)
 
 
