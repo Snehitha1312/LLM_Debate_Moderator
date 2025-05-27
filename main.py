@@ -1,5 +1,5 @@
 from groq import Groq
-client = Groq(api_key='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')
+client = Groq(api_key='my_api_key')
 
 
 system_prompt = {
