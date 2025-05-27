@@ -9,14 +9,14 @@ system_prompt = {
         "1. Keep the conversation on track and relevant to the topic.\n"
         "2. Resolve misunderstandings and highlight important points.\n"
         "3. After each participant speaks, respond with a short clarification, question, or synthesis.\n"
-        "4. At the end, summarize the discussion clearly, highlighting agreements, disagreements, and action items."
+        "4. If any contradiction arises between participants, briefly flag the inconsistency or differing viewpoint.\n"
+        "5. At the end, summarize the discussion clearly, highlighting agreements, disagreements, and action items."
     )
 }
 
-# Initialize conversation history
+
 messages = [system_prompt]
 
-### Turn 1: Engineer speaks
 engineer_prompt = {
     "role": "user",
     "content": (
@@ -27,7 +27,7 @@ engineer_prompt = {
 }
 messages.append(engineer_prompt)
 
-# Moderator replies to engineer
+
 response = client.chat.completions.create(
     messages=messages,
     model="llama-3.3-70b-versatile",
@@ -36,7 +36,6 @@ moderator_reply_1 = response.choices[0].message
 messages.append(moderator_reply_1)
 print(" Moderator (after Engineer):\n", moderator_reply_1.content)
 
-### Turn 2: Designer speaks
 designer_prompt = {
     "role": "user",
     "content": (
@@ -47,7 +46,7 @@ designer_prompt = {
 }
 messages.append(designer_prompt)
 
-# Moderator replies to designer
+
 response = client.chat.completions.create(
     messages=messages,
     model="llama-3.3-70b-versatile",
@@ -56,7 +55,7 @@ moderator_reply_2 = response.choices[0].message
 messages.append(moderator_reply_2)
 print("\n Moderator (after Designer):\n", moderator_reply_2.content)
 
-### Turn 3: PM speaks
+
 pm_prompt = {
     "role": "user",
     "content": (
@@ -67,7 +66,7 @@ pm_prompt = {
 }
 messages.append(pm_prompt)
 
-# Moderator replies to PM
+
 response = client.chat.completions.create(
     messages=messages,
     model="llama-3.3-70b-versatile",
@@ -76,7 +75,22 @@ moderator_reply_3 = response.choices[0].message
 messages.append(moderator_reply_3)
 print("\n Moderator (after PM):\n", moderator_reply_3.content)
 
-### Final Summary
+
+contradiction_check_prompt = {
+    "role": "user",
+    "content": "Have you noticed any contradictions or conflicting points so far? If yes, please highlight them briefly."
+}
+messages.append(contradiction_check_prompt)
+
+response = client.chat.completions.create(
+    messages=messages,
+    model="llama-3.3-70b-versatile",
+)
+contradiction_reply = response.choices[0].message
+messages.append(contradiction_reply)
+print("\n Moderator (Contradiction Check):\n", contradiction_reply.content)
+
+
 summary_prompt = {
     "role": "user",
     "content": "Can you now summarize the discussion with key agreements, disagreements, and next steps?"
