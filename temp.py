@@ -1,5 +1,4 @@
 from groq import Groq
-
 client = Groq(api_key='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')
 
 # System prompt
@@ -35,7 +34,7 @@ response = client.chat.completions.create(
 )
 moderator_reply_1 = response.choices[0].message
 messages.append(moderator_reply_1)
-print("🧠 Moderator (after Engineer):\n", moderator_reply_1.content)
+print(" Moderator (after Engineer):\n", moderator_reply_1.content)
 
 ### Turn 2: Designer speaks
 designer_prompt = {
@@ -55,7 +54,7 @@ response = client.chat.completions.create(
 )
 moderator_reply_2 = response.choices[0].message
 messages.append(moderator_reply_2)
-print("\n🧠 Moderator (after Designer):\n", moderator_reply_2.content)
+print("\n Moderator (after Designer):\n", moderator_reply_2.content)
 
 ### Turn 3: PM speaks
 pm_prompt = {
@@ -75,7 +74,7 @@ response = client.chat.completions.create(
 )
 moderator_reply_3 = response.choices[0].message
 messages.append(moderator_reply_3)
-print("\n🧠 Moderator (after PM):\n", moderator_reply_3.content)
+print("\n Moderator (after PM):\n", moderator_reply_3.content)
 
 ### Final Summary
 summary_prompt = {
@@ -89,4 +88,4 @@ response = client.chat.completions.create(
     model="llama-3.3-70b-versatile",
 )
 final_summary = response.choices[0].message
-print("\n📋 Final Summary:\n", final_summary.content)
+print("\n Final Summary:\n", final_summary.content)
