@@ -74,7 +74,13 @@ This validated:
 
 ![image](https://github.com/user-attachments/assets/e8ec9e3f-3093-4e12-aa48-e38b30c969a6)
 
+**Contradiction Check**
 
+![image](https://github.com/user-attachments/assets/a4286e5f-942b-4d53-9d2c-33508bb0f1fd)
+
+**Summary of the Discussion:**
+
+![image](https://github.com/user-attachments/assets/1c9800c2-0cfc-4d99-b750-48053521e240)
 
 
 Artifacts generated to support evaluation beyond code:
