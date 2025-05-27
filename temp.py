@@ -2,6 +2,7 @@ from groq import Groq
 
 client = Groq(api_key='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')
 
+# System prompt
 system_prompt = {
     "role": "system",
     "content": (
@@ -13,7 +14,10 @@ system_prompt = {
     )
 }
 
-# Step 1: Engineer speaks
+# Initialize conversation history
+messages = [system_prompt]
+
+### Turn 1: Engineer speaks
 engineer_prompt = {
     "role": "user",
     "content": (
@@ -22,9 +26,18 @@ engineer_prompt = {
         "But we also need to consider model size and efficiency. Thoughts?"
     )
 }
+messages.append(engineer_prompt)
 
-# Step 2: Moderator responds to engineer
-# Step 3: Designer speaks
+# Moderator replies to engineer
+response = client.chat.completions.create(
+    messages=messages,
+    model="llama-3.3-70b-versatile",
+)
+moderator_reply_1 = response.choices[0].message
+messages.append(moderator_reply_1)
+print("🧠 Moderator (after Engineer):\n", moderator_reply_1.content)
+
+### Turn 2: Designer speaks
 designer_prompt = {
     "role": "user",
     "content": (
@@ -33,9 +46,18 @@ designer_prompt = {
         "Do fast models enable more human-like and intuitive interactions in your opinion?"
     )
 }
+messages.append(designer_prompt)
 
-# Step 4: Moderator responds to designer
-# Step 5: PM speaks
+# Moderator replies to designer
+response = client.chat.completions.create(
+    messages=messages,
+    model="llama-3.3-70b-versatile",
+)
+moderator_reply_2 = response.choices[0].message
+messages.append(moderator_reply_2)
+print("\n🧠 Moderator (after Designer):\n", moderator_reply_2.content)
+
+### Turn 3: PM speaks
 pm_prompt = {
     "role": "user",
     "content": (
@@ -44,24 +66,27 @@ pm_prompt = {
         "How do we balance fast inference with infrastructure constraints and user expectations?"
     )
 }
+messages.append(pm_prompt)
 
-
-messages = [
-    system_prompt,
-    engineer_prompt,
-    designer_prompt,
-    pm_prompt,
-    {
-        "role": "user",
-        "content": "Please act as the moderator and respond after each role's input, then summarize the discussion."
-    }
-]
-
-# Run the conversation
-chat_completion = client.chat.completions.create(
+# Moderator replies to PM
+response = client.chat.completions.create(
     messages=messages,
     model="llama-3.3-70b-versatile",
 )
+moderator_reply_3 = response.choices[0].message
+messages.append(moderator_reply_3)
+print("\n🧠 Moderator (after PM):\n", moderator_reply_3.content)
 
-# Print the result
-print(chat_completion.choices[0].message.content)
+### Final Summary
+summary_prompt = {
+    "role": "user",
+    "content": "Can you now summarize the discussion with key agreements, disagreements, and next steps?"
+}
+messages.append(summary_prompt)
+
+response = client.chat.completions.create(
+    messages=messages,
+    model="llama-3.3-70b-versatile",
+)
+final_summary = response.choices[0].message
+print("\n📋 Final Summary:\n", final_summary.content)
